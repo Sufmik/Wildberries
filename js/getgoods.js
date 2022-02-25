@@ -62,7 +62,7 @@ const getGoods = () => {
     })
 
 
-    //УСЛОЖНЕННОЕ ЗАДАНИЕ
+    //УСЛОЖНЕННОЕ ЗАДАНИЕ DAY 3
 
     try {
         viewAll.addEventListener('click', (event) => {
