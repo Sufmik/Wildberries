@@ -105,16 +105,12 @@ const cart = function () {
                 } else if (e.target.classList.contains('cart-btn-delete')) {
                     deleteCartItem(good.id)
                 }
-
             })
         })
-        const totalPrice = (good) => {
-            const cart = localStorage.getItem('cart') ?
-                JSON.parse(localStorage.getItem('cart')) : []
-            const count = cart.length * (`${+good.price * +good.count}`)
-            console.log(count);
-        }
-        totalPrice()
+        const cart = JSON.parse(localStorage.getItem('cart'))
+
+        let result = cart.reduce((total, item) => total + (item.price * item.count), 0)
+        cartTotal.innerHTML = result
     }
 
     const sendForm = () => {
@@ -122,12 +118,20 @@ const cart = function () {
         const cartArray = localStorage.getItem('cart') ?
             JSON.parse(localStorage.getItem('cart')) : []
 
+        const name = document.querySelector('.modal-input > nameCustomer')
+        const phone = document.querySelector('.modal-input > phoneCustomer')
+        console.log(name)
+
+        name.addEventListener('input', (event) => {
+            console.log(event.target.value)
+        })
+
         fetch('https://jsonplaceholder.typicode.com/posts', {
             method: 'POST',
             body: JSON.stringify({
                 cart: cartArray,
-                name: '',
-                phone: '',
+                name: name,
+                phone: phone,
             })
 
         })
