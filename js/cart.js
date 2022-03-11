@@ -107,7 +107,8 @@ const cart = function () {
                 }
             })
         })
-        const cart = JSON.parse(localStorage.getItem('cart'))
+        const cart = localStorage.getItem('cart') ?
+            JSON.parse(localStorage.getItem('cart')) : []
 
         let result = cart.reduce((total, item) => total + (item.price * item.count), 0)
         cartTotal.innerHTML = result
@@ -118,21 +119,24 @@ const cart = function () {
         const cartArray = localStorage.getItem('cart') ?
             JSON.parse(localStorage.getItem('cart')) : []
 
-        const name = document.querySelector('.modal-input > nameCustomer')
-        const phone = document.querySelector('.modal-input > phoneCustomer')
-        console.log(name)
+        let name = document.querySelector('[name="nameCustomer"]')
+        let phone = document.querySelector('[name="phoneCustomer"]')
 
         name.addEventListener('input', (event) => {
+            console.log(event.target.value)
+        })
+        phone.addEventListener('input', (event) => {
             console.log(event.target.value)
         })
 
         fetch('https://jsonplaceholder.typicode.com/posts', {
             method: 'POST',
-            body: JSON.stringify({
-                cart: cartArray,
-                name: name,
-                phone: phone,
-            })
+            body: JSON.stringify(
+                {
+                    cart: cartArray,
+                    name: name,
+                    phone: phone,
+                })
 
         })
             .then(() => {
@@ -163,7 +167,6 @@ const cart = function () {
                 const buttonToCart = event.target.closest('.add-to-cart')
                 const goodId = buttonToCart.dataset.id
                 addToCart(goodId)
-
             }
         })
     }
