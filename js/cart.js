@@ -123,10 +123,10 @@ const cart = function () {
         let phone = document.querySelector('[name="phoneCustomer"]')
 
         name.addEventListener('input', (event) => {
-            console.log(event.target.value)
+            return name
         })
         phone.addEventListener('input', (event) => {
-            console.log(event.target.value)
+            return phone
         })
 
         fetch('https://jsonplaceholder.typicode.com/posts', {
@@ -134,8 +134,8 @@ const cart = function () {
             body: JSON.stringify(
                 {
                     cart: cartArray,
-                    name: name,
-                    phone: phone,
+                    name: name.value,
+                    phone: phone.value,
                 })
 
         })
